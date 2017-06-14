@@ -1,38 +1,12 @@
-import { Component } from '@angular/core';
-<<<<<<< HEAD
+import { Component, OnInit } from '@angular/core';
 
-export class Hero {
-  id: number;
-  name: string;
-}
-
-=======
 import { Hero } from './hero';
->>>>>>> origin/master
-const HEROES: Hero[] = [
-  { id: 11, name: 'Mr. Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' }
-];
-<<<<<<< HEAD
+import { HeroService } from './hero.service';
 
-=======
->>>>>>> origin/master
 @Component({
   selector: 'my-app',
   template: `
-<<<<<<< HEAD
-  <h1>{{title}}</h1>
-=======
     <h1>{{title}}</h1>
->>>>>>> origin/master
     <h2>My Heroes</h2>
     <ul class="heroes">
       <li *ngFor="let hero of heroes"
@@ -41,17 +15,6 @@ const HEROES: Hero[] = [
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>
     </ul>
-<<<<<<< HEAD
-    <div *ngIf="selectedHero">
-      <h2>{{selectedHero.name}} details!</h2>
-      <div><label>id: </label>{{selectedHero.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="selectedHero.name" placeholder="name"/>
-      </div>
-    </div>
-  `
-=======
     <hero-detail [hero]="selectedHero"></hero-detail>
   `,
   styles: [`
@@ -102,21 +65,32 @@ const HEROES: Hero[] = [
       margin-right: .8em;
       border-radius: 4px 0 0 4px;
     }
-  `]
->>>>>>> origin/master
+  `],
+  providers: [HeroService]
 })
-
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Tour of Heroes';
-  heroes = HEROES;
-<<<<<<< HEAD
-
+  heroes: Hero[];
   selectedHero: Hero;
 
-=======
-  selectedHero: Hero;
->>>>>>> origin/master
+  constructor(private heroService: HeroService) { }
+
+  getHeroes(): void {
+    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+  }
+
+  ngOnInit(): void {
+    this.getHeroes();
+  }
+
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
   }
 }
+
+
+/*
+Copyright 2017 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+*/
